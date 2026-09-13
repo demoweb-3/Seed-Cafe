@@ -1,5 +1,6 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '@/lib/auth';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import Layout from '@/components/Layout';
 import Home from '@/pages/Home';
 import MenuPage from '@/pages/Menu';
@@ -17,6 +18,7 @@ import SettingsEditor from '@/pages/admin/SettingsEditor';
 
 function App() {
   return (
+    <ErrorBoundary>
     <AuthProvider>
       <HashRouter>
         <Routes>
@@ -45,6 +47,7 @@ function App() {
         </Routes>
       </HashRouter>
     </AuthProvider>
+    </ErrorBoundary>
   );
 }
 

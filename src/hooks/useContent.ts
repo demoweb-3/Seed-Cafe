@@ -9,18 +9,22 @@ export function useMenu() {
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
-    const [catRes, itemRes] = await Promise.all([
-      supabase.from('menu_categories').select('*').order('display_order'),
-      supabase.from('menu_items').select('*').order('display_order'),
-    ]);
+    try {
+      const [catRes, itemRes] = await Promise.all([
+        supabase.from('menu_categories').select('*').order('display_order'),
+        supabase.from('menu_items').select('*').order('display_order'),
+      ]);
 
-    const cats = catRes.data ?? [];
-    const items = itemRes.data ?? [];
-    const grouped = cats.map((c) => ({
-      ...c,
-      items: items.filter((i) => i.category_id === c.id && i.is_available),
-    }));
-    setCategories(grouped);
+      const cats = catRes.data ?? [];
+      const items = itemRes.data ?? [];
+      const grouped = cats.map((c) => ({
+        ...c,
+        items: items.filter((i) => i.category_id === c.id && i.is_available),
+      }));
+      setCategories(grouped);
+    } catch {
+      setCategories([]);
+    }
     setLoading(false);
   }, []);
 
@@ -42,14 +46,18 @@ export function useFeaturedMenuItems(maxCount: number = 4) {
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
-    const { data } = await supabase
-      .from('menu_items')
-      .select('*')
-      .eq('is_available', true)
-      .eq('is_featured', true)
-      .order('display_order')
-      .limit(maxCount);
-    setItems(data ?? []);
+    try {
+      const { data } = await supabase
+        .from('menu_items')
+        .select('*')
+        .eq('is_available', true)
+        .eq('is_featured', true)
+        .order('display_order')
+        .limit(maxCount);
+      setItems(data ?? []);
+    } catch {
+      setItems([]);
+    }
     setLoading(false);
   }, [maxCount]);
 
@@ -70,8 +78,12 @@ export function useGallery() {
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
-    const { data } = await supabase.from('gallery_images').select('*').order('display_order');
-    setImages(data ?? []);
+    try {
+      const { data } = await supabase.from('gallery_images').select('*').order('display_order');
+      setImages(data ?? []);
+    } catch {
+      setImages([]);
+    }
     setLoading(false);
   }, []);
 
@@ -92,8 +104,12 @@ export function useGalleryPreview(maxCount: number = 6) {
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
-    const { data } = await supabase.from('gallery_images').select('*').order('display_order').limit(maxCount);
-    setImages(data ?? []);
+    try {
+      const { data } = await supabase.from('gallery_images').select('*').order('display_order').limit(maxCount);
+      setImages(data ?? []);
+    } catch {
+      setImages([]);
+    }
     setLoading(false);
   }, [maxCount]);
 
@@ -114,8 +130,12 @@ export function useStory() {
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
-    const { data } = await supabase.from('story_content').select('*').eq('id', 1).maybeSingle();
-    setStory(data);
+    try {
+      const { data } = await supabase.from('story_content').select('*').eq('id', 1).maybeSingle();
+      setStory(data);
+    } catch {
+      setStory(null);
+    }
     setLoading(false);
   }, []);
 
@@ -136,8 +156,12 @@ export function useCafeSettings() {
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
-    const { data } = await supabase.from('cafe_settings').select('*').eq('id', 1).maybeSingle();
-    setSettings(data);
+    try {
+      const { data } = await supabase.from('cafe_settings').select('*').eq('id', 1).maybeSingle();
+      setSettings(data);
+    } catch {
+      setSettings(null);
+    }
     setLoading(false);
   }, []);
 

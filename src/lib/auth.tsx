@@ -23,15 +23,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(data.session);
       setUser(data.session?.user ?? null);
       setLoading(false);
-    });
-
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, newSession) => {
-      setSession(newSession);
-      setUser(newSession?.user ?? null);
+    }).catch(() => {
       setLoading(false);
     });
 
-    return () => listener.subscription.unsubscribe();
+    let listener: { subscription: { unsubscribe: () => void } } | undefined;
+    try {
+      const result = supabase.auth.onAuthStateChange((_event, newSession) => {
+        setSession(newSession);
+        setUser(newSession?.user ?? null);
+        setLoading(false);
+      });
+      listener = result.data;
+    } catch {
+      // auth listener failed — app still works without realtime auth updates
+    }
+
+    return () => { listener?.subscription.unsubscribe(); };
   }, []);
 
   const signIn = async (email: string, password: string) => {
