@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section ref={heroRef} className="relative min-h-[100svh] flex items-end overflow-hidden">
+      <section ref={heroRef} className="relative min-h-[88svh] sm:min-h-[100svh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="https://images.pexels.com/photos/2101150/pexels-photo-2101150.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1280&fit=crop"
@@ -35,31 +35,31 @@ export default function Home() {
             loading="eager"
             fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink-900/70 via-ink-900/20 to-ink-900/30" />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink-900/30 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink-900/80 via-ink-900/30 to-ink-900/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink-900/40 via-transparent to-transparent" />
         </div>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pb-16 sm:pb-20 lg:pb-28">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pb-12 sm:pb-20 lg:pb-28">
           <div className="max-w-2xl">
-            <div className="reveal flex items-center gap-3 mb-5 sm:mb-7">
-              <HandDrawnLine className="w-16 h-2 text-golden-300" />
-              <span className="text-xs sm:text-sm font-medium tracking-[0.25em] uppercase text-ivory-100/90">
+            <div className="reveal flex items-center gap-3 mb-4 sm:mb-7">
+              <HandDrawnLine className="w-12 sm:w-16 h-2 text-golden-300" />
+              <span className="text-[11px] sm:text-sm font-medium tracking-[0.25em] uppercase text-ivory-100/90">
                 {addr1} · {addr2.split(',')[0]}
               </span>
             </div>
-            <h1 className="reveal reveal-delay-1 font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tightest text-ivory-50 text-balance">
+            <h1 className="reveal reveal-delay-1 font-serif text-4xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tightest text-ivory-50 text-balance">
               No Hurry,<br />
               <span className="italic font-light text-golden-200">No Worry.</span>
             </h1>
-            <p className="reveal reveal-delay-2 mt-6 sm:mt-8 text-base sm:text-lg text-ivory-100/85 leading-relaxed max-w-md text-pretty">
+            <p className="reveal reveal-delay-2 mt-4 sm:mt-8 text-sm sm:text-lg text-ivory-100/90 leading-relaxed max-w-md text-pretty">
               A calm corner of Colombo where mornings breathe, coffee is slow, and good food brings people together.
             </p>
-            <div className="reveal reveal-delay-3 mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <Link to="/menu" className="inline-flex items-center justify-center px-7 py-3.5 text-sm font-medium text-ink-800 bg-ivory-50 rounded-full hover:bg-golden-200 transition-all duration-300 hover:shadow-xl hover:shadow-golden-400/20 group">
+            <div className="reveal reveal-delay-3 mt-6 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <Link to="/menu" className="inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-semibold text-ink-800 bg-ivory-50 rounded-full hover:bg-golden-200 transition-all duration-300 hover:shadow-xl hover:shadow-golden-400/20 group shadow-lg shadow-ink-900/20">
                 Explore Menu
                 <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
               </Link>
-              <Link to="/contact" className="inline-flex items-center justify-center px-7 py-3.5 text-sm font-medium text-ivory-50 border border-ivory-100/40 rounded-full hover:bg-ivory-50/10 hover:border-ivory-100/70 transition-all duration-300">
+              <Link to="/contact" className="inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-medium text-ivory-50/90 border border-ivory-100/30 rounded-full hover:bg-ivory-50/10 hover:border-ivory-100/60 transition-all duration-300">
                 Visit Seed
               </Link>
             </div>
@@ -73,7 +73,7 @@ export default function Home() {
       </section>
 
       {/* BRAND MOMENT */}
-      <section ref={brandRef} className="relative bg-ivory-50 py-20 sm:py-28 lg:py-36 overflow-hidden">
+      <section ref={brandRef} className="relative bg-ivory-50 py-16 sm:py-28 lg:py-36 overflow-hidden">
         <SeedSprout className="absolute top-12 left-4 sm:left-12 w-16 sm:w-24 h-16 sm:h-24 text-botanical-300/40" />
         <CircleSeed className="absolute bottom-16 right-4 sm:right-12 w-20 sm:w-28 h-20 sm:h-28 text-golden-300/30" />
         <div className="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 text-center">
@@ -97,7 +97,7 @@ export default function Home() {
       </section>
 
       {/* MENU PREVIEW */}
-      <section ref={menuRef} className="relative bg-ivory-100 py-20 sm:py-28 lg:py-32">
+      <section ref={menuRef} className="relative bg-ivory-100 py-16 sm:py-28 lg:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <div className="text-center mb-14 sm:mb-20">
             <div className="reveal flex items-center justify-center gap-3 mb-4">
@@ -135,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* STORY PREVIEW */}
-      <section ref={storyRef} className="relative bg-ivory-50 py-20 sm:py-28 lg:py-36 overflow-hidden">
+      <section ref={storyRef} className="relative bg-ivory-50 py-16 sm:py-28 lg:py-36 overflow-hidden">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="reveal relative">
@@ -180,7 +180,7 @@ export default function Home() {
       </section>
 
       {/* EXPERIENCE PREVIEW */}
-      <section ref={expRef} className="relative bg-botanical-700 py-20 sm:py-28 lg:py-36 overflow-hidden">
+      <section ref={expRef} className="relative bg-botanical-700 py-16 sm:py-28 lg:py-36 overflow-hidden">
         <OrganicCurve className="absolute top-0 left-0 w-full h-12 text-ivory-50 -translate-y-px" />
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <div className="text-center mb-14 sm:mb-20">
@@ -216,7 +216,7 @@ export default function Home() {
       </section>
 
       {/* GALLERY PREVIEW */}
-      <section ref={galleryRef} className="relative bg-ivory-100 py-20 sm:py-28 lg:py-32">
+      <section ref={galleryRef} className="relative bg-ivory-100 py-16 sm:py-28 lg:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <div className="text-center mb-12 sm:mb-16">
             <div className="reveal flex items-center justify-center gap-3 mb-4">
@@ -252,7 +252,7 @@ export default function Home() {
       </section>
 
       {/* VISIT PREVIEW */}
-      <section ref={visitRef} className="relative bg-ivory-50 py-20 sm:py-28 lg:py-36 overflow-hidden">
+      <section ref={visitRef} className="relative bg-ivory-50 py-16 sm:py-28 lg:py-36 overflow-hidden">
         <div className="max-w-3xl mx-auto px-5 sm:px-8 lg:px-12 text-center">
           <div className="reveal flex items-center justify-center gap-3 mb-5">
             <HandDrawnLine className="w-12 h-2 text-golden-300" />
@@ -262,7 +262,7 @@ export default function Home() {
           <h2 className="reveal reveal-delay-1 font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tighter text-ink-800 leading-[1.05]">
             Come by for a <span className="italic text-botanical-600">slow one</span>.
           </h2>
-          <div className="reveal reveal-delay-2 mt-8 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 text-left">
+          <div className="reveal reveal-delay-2 mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-10 text-left">
             <div className="flex items-start gap-3">
               <MapPin size={20} className="text-botanical-500 mt-0.5 shrink-0" />
               <div className="text-sm text-ink-500 leading-relaxed">

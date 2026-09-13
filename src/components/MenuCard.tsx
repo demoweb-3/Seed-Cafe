@@ -12,8 +12,9 @@ export default function MenuCard({ item, delayClass = '' }: { item: MenuItem; de
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-900/20 to-transparent" />
         {item.tag && (
-          <span className="absolute top-2 left-2 sm:top-3 sm:left-3 px-2.5 py-1 text-[10px] sm:text-xs font-medium tracking-wide uppercase text-ink-800 bg-golden-200/90 rounded-full backdrop-blur-sm">
+          <span className="absolute top-2 left-2 sm:top-3 sm:left-3 px-2.5 py-1 text-[10px] sm:text-xs font-medium tracking-wide uppercase text-ink-800 bg-golden-200/95 rounded-full backdrop-blur-sm shadow-sm">
             {item.tag}
           </span>
         )}

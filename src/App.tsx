@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '@/lib/auth';
 import Layout from '@/components/Layout';
 import Home from '@/pages/Home';
@@ -18,7 +18,7 @@ import SettingsEditor from '@/pages/admin/SettingsEditor';
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           {/* Public website */}
           <Route element={<Layout />}>
@@ -43,7 +43,7 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </AuthProvider>
   );
 }
