@@ -117,8 +117,8 @@ export default function GalleryManager() {
 
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-ink-900/40 backdrop-blur-sm" onClick={() => setShowModal(false)} />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <div className="absolute inset-0 bg-ink-900/40 backdrop-blur-sm animate-fade-in" onClick={() => setShowModal(false)} />
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto animate-scale-in">
             <div className="flex items-center justify-between p-5 border-b border-ink-100 sticky top-0 bg-white rounded-t-2xl">
               <h2 className="font-serif text-lg text-ink-800">{editId ? 'Edit Image' : 'Add Image'}</h2>
               <button onClick={() => setShowModal(false)} className="p-1.5 text-ink-400 hover:text-ink-700 hover:bg-ivory-100 rounded-lg transition-colors"><X size={18} /></button>

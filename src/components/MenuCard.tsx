@@ -3,7 +3,7 @@ import type { MenuItem } from '@/lib/types';
 export default function MenuCard({ item, delayClass = '' }: { item: MenuItem; delayClass?: string }) {
   return (
     <article
-      className={`reveal ${delayClass} group relative overflow-hidden rounded-xl sm:rounded-2xl bg-ivory-50 cursor-pointer transition-all duration-500 hover:shadow-xl hover:shadow-ink-900/8 hover:-translate-y-1`}
+      className={`reveal ${delayClass} group relative overflow-hidden rounded-xl sm:rounded-2xl bg-ivory-50 cursor-pointer card-3d hover:shadow-xl hover:shadow-ink-900/8`}
     >
       <div className="relative aspect-square overflow-hidden">
         <img

@@ -92,7 +92,7 @@ export default function Navbar() {
           open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        <div className="absolute inset-0 bg-ivory-50" />
+        <div className="absolute inset-0 bg-ivory-50 animate-fade-in" />
         <div className="relative flex flex-col items-center justify-center h-full gap-7 px-8">
           {NAV_LINKS.map((link, i) => (
             <Link

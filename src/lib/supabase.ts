@@ -1,7 +1,10 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = (import.meta.env.VITE_SUPABASE_URL as string) || '';
-const supabaseAnonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string) || '';
+const FALLBACK_URL = 'https://ziacqgryhzfhtlnrasei.supabase.co';
+const FALLBACK_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InppYWNxZ3J5aHpmaHRsbnJhc2VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwOTQzNjEsImV4cCI6MjEwNDY3MDM2MX0.IbKmk3m_ZidlKgy74hNdv-tY5tNFyaCccADNU8yPx0c';
+
+const supabaseUrl = (import.meta.env.VITE_SUPABASE_URL as string) || FALLBACK_URL;
+const supabaseAnonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string) || FALLBACK_KEY;
 
 let client: SupabaseClient;
 try {
@@ -14,7 +17,7 @@ try {
     },
   });
 } catch {
-  client = createClient('https://placeholder.supabase.co', 'placeholder-anon-key', {
+  client = createClient(FALLBACK_URL, FALLBACK_KEY, {
     auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
   });
 }
