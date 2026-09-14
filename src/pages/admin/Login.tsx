@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Lock, Mail } from 'lucide-react';
 
 export default function AdminLogin() {
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, session } = useAuth();
+  const navigate = useNavigate();
   const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,9 +20,17 @@ export default function AdminLogin() {
     const fn = mode === 'login' ? signIn : signUp;
     const { error: err } = await fn(email, password);
 
-    if (err) setError(err);
-    setLoading(false);
+    if (err) {
+      setError(err);
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (session) {
+      navigate('/admin', { replace: true });
+    }
+  }, [session, navigate]);
 
   return (
     <div className="min-h-screen bg-ivory-50 flex items-center justify-center px-5">

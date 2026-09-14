@@ -1,9 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-/**
- * Adds the `is-visible` class to an element when it scrolls into view.
- * Use with the `reveal` class for fade-up-on-scroll animations.
- */
 export function useReveal<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T>(null);
 
@@ -23,11 +19,27 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
       { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
     );
 
-    // Observe the element itself and any children with .reveal
-    if (el.classList.contains('reveal')) observer.observe(el);
-    el.querySelectorAll('.reveal').forEach((child) => observer.observe(child));
+    const observeAll = () => {
+      if (el.classList.contains('reveal') && !el.classList.contains('is-visible')) {
+        observer.observe(el);
+      }
+      el.querySelectorAll('.reveal:not(.is-visible)').forEach((child) => {
+        observer.observe(child);
+      });
+    };
 
-    return () => observer.disconnect();
+    observeAll();
+
+    const mutationObserver = new MutationObserver(() => {
+      observeAll();
+    });
+
+    mutationObserver.observe(el, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
   }, []);
 
   return ref;
