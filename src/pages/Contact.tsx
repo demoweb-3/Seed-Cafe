@@ -16,7 +16,14 @@ export default function ContactPage() {
   const hoursWeekends = settings?.hours_weekends ?? '8:00 AM – 9:00 PM';
   const instagramUrl = settings?.instagram_url && settings.instagram_url !== '#' ? settings.instagram_url : null;
   const facebookUrl = settings?.facebook_url && settings.facebook_url !== '#' ? settings.facebook_url : null;
-  const mapQuery = encodeURIComponent(`${addr1} ${addr2} ${addr3}`);
+  const hasCoords = settings?.latitude != null && settings?.longitude != null;
+  const mapQuery = hasCoords
+    ? `${settings!.latitude},${settings!.longitude}`
+    : encodeURIComponent(`${addr1} ${addr2} ${addr3}`);
+  const directionsUrl = settings?.map_url
+    ? settings.map_url
+    : `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+  const embedSrc = `https://www.google.com/maps?q=${mapQuery}&output=embed`;
 
   return (
     <section ref={ref} className="relative bg-ivory-50 pt-28 sm:pt-32 pb-20 sm:pb-28 lg:pb-36 overflow-hidden">
@@ -101,7 +108,7 @@ export default function ContactPage() {
 
             <div className="reveal reveal-delay-1 mt-8 sm:mt-10">
               <a
-                href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
+                href={directionsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-shine inline-flex items-center gap-2 px-7 py-3.5 text-sm font-medium text-ivory-50 bg-ink-800 rounded-full hover:bg-botanical-600 transition-all duration-300 hover:shadow-lg group"
@@ -117,7 +124,7 @@ export default function ContactPage() {
             <div className="rounded-2xl overflow-hidden shadow-xl">
               <iframe
                 title="Seed Café location on Google Maps"
-                src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+                src={embedSrc}
                 className="w-full h-[320px] sm:h-[400px] lg:h-[480px] border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

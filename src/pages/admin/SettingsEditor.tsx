@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { supabase } from '@/lib/supabase';
 import type { CafeSettings } from '@/lib/types';
-import { Save, Check } from 'lucide-react';
+import { Save, Check, Search } from 'lucide-react';
 
 export default function SettingsEditor() {
   const [data, setData] = useState<CafeSettings | null>(null);
@@ -21,6 +21,67 @@ export default function SettingsEditor() {
     setSaved(false);
   };
 
+  const updateNumber = (field: keyof CafeSettings, value: string) => {
+    const num = value === '' ? null : parseFloat(value);
+    setData((d) => d ? { ...d, [field]: num } : d);
+    setSaved(false);
+  };
+
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  const [gmapsLoaded, setGmapsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (gmapsLoaded) return;
+    const checkGoogle = window.google?.maps;
+    if (checkGoogle) { setGmapsLoaded(true); return; }
+    const existing = document.getElementById('gmaps-places-script');
+    if (existing) return;
+    const script = document.createElement('script');
+    script.id = 'gmaps-places-script';
+    script.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&v=weekly';
+    script.async = true;
+    script.defer = true;
+    script.onload = () => setGmapsLoaded(true);
+    document.head.appendChild(script);
+  }, [gmapsLoaded]);
+
+  useEffect(() => {
+    if (!gmapsLoaded || !searchInputRef.current || autocompleteRef.current) return;
+    const ac = new window.google.maps.places.Autocomplete(searchInputRef.current, {
+      types: ['establishment', 'geocode'],
+    });
+    ac.addListener('place_changed', () => {
+      const place = ac.getPlace();
+      if (!place) return;
+      const lat = place.geometry?.location?.lat() ?? null;
+      const lng = place.geometry?.location?.lng() ?? null;
+      const addrComponents = place.address_components ?? [];
+      const getComp = (type: string) => addrComponents.find(c => c.types.includes(type))?.long_name ?? '';
+      const line1 = [getComp('street_number'), getComp('route')].filter(Boolean).join(' ').trim();
+      const line2 = [getComp('locality'), getComp('administrative_area_level_2')].filter(Boolean).join(', ').trim();
+      const line3 = getComp('country');
+      const placeUrl = place.url ?? '';
+      setData((d) => d ? {
+        ...d,
+        address_line1: line1 || d.address_line1,
+        address_line2: line2 || d.address_line2,
+        address_line3: line3 || d.address_line3,
+        latitude: lat,
+        longitude: lng,
+        map_url: placeUrl || d.map_url,
+      } : d);
+      setSaved(false);
+    });
+    autocompleteRef.current = ac;
+  }, [gmapsLoaded]);
+
+  const previewSrc = data && data.latitude != null && data.longitude != null
+    ? `https://www.google.com/maps?q=${data.latitude},${data.longitude}&output=embed`
+    : data && data.address_line1
+      ? `https://www.google.com/maps?q=${encodeURIComponent(`${data.address_line1 ?? ''} ${data.address_line2 ?? ''} ${data.address_line3 ?? ''}`)}&output=embed`
+      : '';
+
   const save = async () => {
     if (!data) return;
     setSaving(true);
@@ -36,6 +97,9 @@ export default function SettingsEditor() {
       facebook_url: data.facebook_url,
       hours_weekdays: data.hours_weekdays,
       hours_weekends: data.hours_weekends,
+      latitude: data.latitude,
+      longitude: data.longitude,
+      map_url: data.map_url,
       updated_at: new Date().toISOString(),
     }).eq('id', 1);
     setSaving(false);
@@ -90,6 +154,53 @@ export default function SettingsEditor() {
               <input type="text" value={data.address_line3 ?? ''} onChange={(e) => update('address_line3', e.target.value)}
                 className="w-full px-3 py-2.5 text-sm rounded-lg border border-ink-200 bg-white focus:outline-none focus:border-botanical-400 focus:ring-1 focus:ring-botanical-400" />
             </div>
+          </div>
+        </div>
+
+        <div className="border-t border-ink-100 pt-5">
+          <h2 className="font-serif text-lg text-ink-700 mb-4">Map Location</h2>
+          <div className="space-y-3">
+            <div>
+              <label className="block text-xs font-medium text-ink-500 mb-1.5">Search location</label>
+              <div className="relative">
+                <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-300" />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Search for the café on Google Maps..."
+                  className="w-full pl-9 pr-3 py-2.5 text-sm rounded-lg border border-ink-200 bg-white focus:outline-none focus:border-botanical-400 focus:ring-1 focus:ring-botanical-400"
+                />
+              </div>
+              <p className="text-xs text-ink-400 mt-1">Selecting a result auto-fills address, coordinates, and map URL.</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-ink-500 mb-1.5">Latitude</label>
+                <input type="number" step="any" value={data.latitude ?? ''} onChange={(e) => updateNumber('latitude', e.target.value)}
+                  className="w-full px-3 py-2.5 text-sm rounded-lg border border-ink-200 bg-white focus:outline-none focus:border-botanical-400 focus:ring-1 focus:ring-botanical-400" placeholder="6.9271" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-ink-500 mb-1.5">Longitude</label>
+                <input type="number" step="any" value={data.longitude ?? ''} onChange={(e) => updateNumber('longitude', e.target.value)}
+                  className="w-full px-3 py-2.5 text-sm rounded-lg border border-ink-200 bg-white focus:outline-none focus:border-botanical-400 focus:ring-1 focus:ring-botanical-400" placeholder="79.8612" />
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-ink-500 mb-1.5">Google Maps URL</label>
+              <input type="text" value={data.map_url ?? ''} onChange={(e) => update('map_url', e.target.value)}
+                className="w-full px-3 py-2.5 text-sm rounded-lg border border-ink-200 bg-white focus:outline-none focus:border-botanical-400 focus:ring-1 focus:ring-botanical-400" placeholder="https://maps.google.com/?q=seed+cafe" />
+            </div>
+            {previewSrc && (
+              <div className="rounded-lg overflow-hidden border border-ink-100">
+                <iframe
+                  title="Location preview"
+                  src={previewSrc}
+                  className="w-full h-[240px] border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            )}
           </div>
         </div>
 

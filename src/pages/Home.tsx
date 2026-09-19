@@ -23,6 +23,12 @@ export default function Home() {
   const addr2 = settings?.address_line2 ?? 'Colombo 00700';
   const phone = settings?.phone ?? '+94 11 000 0000';
   const hoursWeekdays = settings?.hours_weekdays ?? '7:00 AM – 8:00 PM';
+  const hasCoords = settings?.latitude != null && settings?.longitude != null;
+  const directionsUrl = settings?.map_url
+    ? settings.map_url
+    : hasCoords
+      ? `https://www.google.com/maps/search/?api=1&query=${settings!.latitude},${settings!.longitude}`
+      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${addr1} ${addr2}`)}`;
 
   return (
     <>
@@ -296,10 +302,10 @@ export default function Home() {
             </div>
           </div>
           <div className="reveal reveal-delay-3 mt-10">
-            <Link to="/contact" className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-medium text-ivory-50 bg-ink-800 rounded-full hover:bg-botanical-600 transition-all duration-300 hover:shadow-lg group">
+            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="btn-shine inline-flex items-center gap-2 px-7 py-3.5 text-sm font-medium text-ivory-50 bg-ink-800 rounded-full hover:bg-botanical-600 transition-all duration-300 hover:shadow-lg group">
               Get Directions
               <MapPin size={16} className="transition-transform duration-300 group-hover:scale-110" />
-            </Link>
+            </a>
           </div>
         </div>
       </section>

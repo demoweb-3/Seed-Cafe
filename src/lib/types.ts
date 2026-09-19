@@ -57,5 +57,8 @@ export type CafeSettings = {
   facebook_url: string | null;
   hours_weekdays: string | null;
   hours_weekends: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  map_url: string | null;
   updated_at: string;
 };
