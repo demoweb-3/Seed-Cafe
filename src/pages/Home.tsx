@@ -34,7 +34,7 @@ export default function Home() {
             srcSet="https://images.pexels.com/photos/2101150/pexels-photo-2101150.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop 600w, https://images.pexels.com/photos/2101150/pexels-photo-2101150.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop 1200w, https://images.pexels.com/photos/2101150/pexels-photo-2101150.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1280&fit=crop 1920w"
             sizes="100vw"
             alt="A warm cappuccino with latte art in morning sunlight on a wooden table"
-            className="w-full h-full object-cover animate-slow-zoom"
+            className="w-full h-full object-cover animate-ken-burns"
             loading="eager"
             decoding="async"
             fetchPriority="high"
@@ -61,11 +61,11 @@ export default function Home() {
               A calm corner of Colombo where mornings breathe, coffee is slow, and good food brings people together.
             </p>
             <div className="reveal reveal-delay-3 mt-6 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <Link to="/menu" className="inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-semibold text-ink-800 bg-ivory-50 rounded-full hover:bg-golden-200 transition-all duration-300 hover:shadow-xl hover:shadow-golden-400/20 group shadow-lg shadow-ink-900/20">
+              <Link to="/menu" className="btn-shine inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-semibold text-ink-800 bg-ivory-50 rounded-full hover:bg-golden-200 transition-all duration-300 hover:shadow-xl hover:shadow-golden-400/20 group shadow-lg shadow-ink-900/20">
                 Explore Menu
                 <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
               </Link>
-              <Link to="/contact" className="inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-medium text-ivory-50/90 border border-ivory-100/30 rounded-full hover:bg-ivory-50/10 hover:border-ivory-100/60 transition-all duration-300">
+              <Link to="/contact" className="btn-shine inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5 text-sm font-medium text-ivory-50/90 border border-ivory-100/30 rounded-full hover:bg-ivory-50/10 hover:border-ivory-100/60 transition-all duration-300">
                 Visit Seed
               </Link>
             </div>
@@ -74,14 +74,14 @@ export default function Home() {
 
         <div className="absolute bottom-6 right-5 sm:right-8 lg:right-12 z-10 hidden sm:flex flex-col items-center gap-2">
           <span className="text-[10px] tracking-[0.3em] uppercase text-ivory-100/60 [writing-mode:vertical-rl] rotate-180">Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-ivory-100/50 to-transparent" />
+          <div className="w-px h-12 bg-gradient-to-b from-ivory-100/50 to-transparent animate-scroll-bounce" />
         </div>
       </section>
 
       {/* BRAND MOMENT */}
       <section ref={brandRef} className="relative bg-ivory-50 py-16 sm:py-28 lg:py-36 overflow-hidden">
-        <SeedSprout className="absolute top-12 left-4 sm:left-12 w-16 sm:w-24 h-16 sm:h-24 text-botanical-300/40" />
-        <CircleSeed className="absolute bottom-16 right-4 sm:right-12 w-20 sm:w-28 h-20 sm:h-28 text-golden-300/30" />
+        <SeedSprout className="absolute top-12 left-4 sm:left-12 w-16 sm:w-24 h-16 sm:h-24 text-botanical-300/40 animate-float-slow" />
+        <CircleSeed className="absolute bottom-16 right-4 sm:right-12 w-20 sm:w-28 h-20 sm:h-28 text-golden-300/30 animate-float-slower" />
         <div className="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 text-center">
           <div className="reveal flex justify-center mb-8">
             <span className="text-xs font-medium tracking-[0.3em] uppercase text-botanical-500">Seed Café</span>
@@ -165,7 +165,7 @@ export default function Home() {
                   decoding="async"
                 />
               </div>
-              <SeedCluster className="absolute -top-6 -left-4 sm:-left-6 w-20 sm:w-28 h-20 sm:h-28 text-botanical-300/50" />
+              <SeedCluster className="absolute -top-6 -left-4 sm:-left-6 w-20 sm:w-28 h-20 sm:h-28 text-botanical-300/50 animate-sway" />
             </div>
             <div>
               <div className="reveal flex items-center gap-3 mb-5">
@@ -245,7 +245,7 @@ export default function Home() {
           ) : (
             <div className="reveal reveal-delay-2 grid grid-cols-2 lg:grid-cols-4 auto-rows-[140px] sm:auto-rows-[180px] lg:auto-rows-[200px] gap-2 sm:gap-3 lg:gap-4">
               {galleryImages.map((img) => (
-                <figure key={img.id} className={`group relative overflow-hidden rounded-lg sm:rounded-xl ${img.span_class}`}>
+                <figure key={img.id} className={`group img-zoom-hover relative overflow-hidden rounded-lg sm:rounded-xl ${img.span_class}`}>
                   <img src={img.image_url} alt={img.caption ?? ''} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-ink-900/0 group-hover:bg-ink-900/15 transition-colors duration-500" />
                 </figure>

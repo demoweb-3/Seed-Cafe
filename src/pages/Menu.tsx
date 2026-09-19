@@ -65,7 +65,7 @@ export default function MenuPage() {
           <p className="text-sm text-ink-400 italic mb-6">
             Menu items and prices may vary — please confirm in-store.
           </p>
-          <Link to="/contact" className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-medium text-ivory-50 bg-ink-800 rounded-full hover:bg-botanical-600 transition-all duration-300 hover:shadow-lg group">
+          <Link to="/contact" className="btn-shine inline-flex items-center gap-2 px-7 py-3.5 text-sm font-medium text-ivory-50 bg-ink-800 rounded-full hover:bg-botanical-600 transition-all duration-300 hover:shadow-lg group">
             Come Taste for Yourself
             <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>

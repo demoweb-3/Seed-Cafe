@@ -69,7 +69,7 @@ export default function Navbar() {
               })}
               <Link
                 to="/menu"
-                className="ml-2 px-5 py-2.5 text-sm font-medium text-ivory-50 bg-ink-800 rounded-full hover:bg-botanical-600 transition-all duration-300 hover:shadow-lg hover:shadow-botanical-600/20"
+                className="btn-shine ml-2 px-5 py-2.5 text-sm font-medium text-ivory-50 bg-ink-800 rounded-full hover:bg-botanical-600 transition-all duration-300 hover:shadow-lg hover:shadow-botanical-600/20"
               >
                 View Menu
               </Link>
@@ -112,7 +112,7 @@ export default function Navbar() {
           <Link
             to="/menu"
             onClick={() => setOpen(false)}
-            className="mt-4 px-8 py-3 text-base font-medium text-ivory-50 bg-ink-800 rounded-full hover:bg-botanical-600 transition-colors duration-300"
+            className="btn-shine mt-4 px-8 py-3 text-base font-medium text-ivory-50 bg-ink-800 rounded-full hover:bg-botanical-600 transition-colors duration-300"
             style={{
               opacity: open ? 1 : 0,
               transform: open ? 'translateY(0)' : 'translateY(20px)',

@@ -10,7 +10,7 @@ export default function AboutPage() {
 
   return (
     <section ref={ref} className="relative bg-ivory-50 pt-28 sm:pt-32 pb-20 sm:pb-28 lg:pb-36 overflow-hidden">
-      <SeedSprout className="absolute top-24 right-4 sm:right-12 w-16 sm:w-24 h-16 sm:h-24 text-botanical-300/40" />
+      <SeedSprout className="absolute top-24 right-4 sm:right-12 w-16 sm:w-24 h-16 sm:h-24 text-botanical-300/40 animate-float-slow" />
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
         {/* Header */}
@@ -48,7 +48,7 @@ export default function AboutPage() {
                 decoding="async"
               />
             </div>
-            <SeedCluster className="absolute -top-6 -left-4 sm:-left-6 w-20 sm:w-28 h-20 sm:h-28 text-botanical-300/50" />
+            <SeedCluster className="absolute -top-6 -left-4 sm:-left-6 w-20 sm:w-28 h-20 sm:h-28 text-botanical-300/50 animate-sway" />
           </div>
           <div>
             <h2 className="reveal reveal-delay-1 font-serif text-3xl sm:text-4xl leading-[1.15] tracking-tighter text-ink-800 text-balance">
@@ -66,7 +66,7 @@ export default function AboutPage() {
 
         {/* Philosophy section */}
         <div className="relative bg-botanical-700 rounded-2xl py-16 sm:py-20 lg:py-24 px-5 sm:px-8 lg:px-16 mb-20 sm:mb-28 overflow-hidden">
-          <CircleSeed className="absolute top-6 right-6 w-16 h-16 text-golden-200/30" />
+          <CircleSeed className="absolute top-6 right-6 w-16 h-16 text-golden-200/30 animate-pulse-ring" />
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="reveal font-serif text-3xl sm:text-4xl lg:text-5xl tracking-tighter text-ivory-50 text-balance">
               {story?.philosophy_heading ?? 'Our philosophy'}
@@ -121,7 +121,7 @@ export default function AboutPage() {
         {/* CTA */}
         <div className="reveal text-center">
           <p className="font-serif italic text-lg text-botanical-500 mb-4">Take your time.</p>
-          <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 text-sm font-medium text-ivory-50 bg-ink-800 rounded-full hover:bg-botanical-600 transition-all duration-300 hover:shadow-xl group">
+          <Link to="/contact" className="btn-shine inline-flex items-center gap-2 px-8 py-4 text-sm font-medium text-ivory-50 bg-ink-800 rounded-full hover:bg-botanical-600 transition-all duration-300 hover:shadow-xl group">
             Come by Seed
             <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>

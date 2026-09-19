@@ -35,7 +35,7 @@ export default function GalleryPage() {
         ) : (
           <div className="reveal reveal-delay-2 grid grid-cols-2 lg:grid-cols-4 auto-rows-[140px] sm:auto-rows-[180px] lg:auto-rows-[200px] gap-2 sm:gap-3 lg:gap-4">
             {images.map((img) => (
-              <figure key={img.id} className={`group relative overflow-hidden rounded-lg sm:rounded-xl ${img.span_class}`}>
+              <figure key={img.id} className={`group img-zoom-hover relative overflow-hidden rounded-lg sm:rounded-xl ${img.span_class}`}>
                 <img
                   src={img.image_url}
                   alt={img.caption ?? ''}
