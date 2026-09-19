@@ -1,26 +1,37 @@
+import { lazy, Suspense } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '@/lib/auth';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import Layout from '@/components/Layout';
 import Home from '@/pages/Home';
-import MenuPage from '@/pages/Menu';
-import AboutPage from '@/pages/About';
-import GalleryPage from '@/pages/Gallery';
-import ContactPage from '@/pages/Contact';
-import AdminLogin from '@/pages/admin/Login';
-import AdminLayout from '@/components/admin/AdminLayout';
-import ProtectedRoute from '@/components/admin/ProtectedRoute';
-import Dashboard from '@/pages/admin/Dashboard';
-import MenuManager from '@/pages/admin/MenuManager';
-import GalleryManager from '@/pages/admin/GalleryManager';
-import StoryEditor from '@/pages/admin/StoryEditor';
-import SettingsEditor from '@/pages/admin/SettingsEditor';
+
+const MenuPage = lazy(() => import('@/pages/Menu'));
+const AboutPage = lazy(() => import('@/pages/About'));
+const GalleryPage = lazy(() => import('@/pages/Gallery'));
+const ContactPage = lazy(() => import('@/pages/Contact'));
+const AdminLogin = lazy(() => import('@/pages/admin/Login'));
+const AdminLayout = lazy(() => import('@/components/admin/AdminLayout'));
+const ProtectedRoute = lazy(() => import('@/components/admin/ProtectedRoute'));
+const Dashboard = lazy(() => import('@/pages/admin/Dashboard'));
+const MenuManager = lazy(() => import('@/pages/admin/MenuManager'));
+const GalleryManager = lazy(() => import('@/pages/admin/GalleryManager'));
+const StoryEditor = lazy(() => import('@/pages/admin/StoryEditor'));
+const SettingsEditor = lazy(() => import('@/pages/admin/SettingsEditor'));
+
+function PageFallback() {
+  return (
+    <div className="min-h-screen bg-ivory-50 flex items-center justify-center">
+      <div className="h-8 w-8 rounded-full border-2 border-ink-200 border-t-botanical-500 animate-spin" />
+    </div>
+  );
+}
 
 function App() {
   return (
     <ErrorBoundary>
     <AuthProvider>
-      <HashRouter>
+    <HashRouter>
+      <Suspense fallback={<PageFallback />}>
         <Routes>
           {/* Public website */}
           <Route element={<Layout />}>
@@ -45,7 +56,8 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      </HashRouter>
+      </Suspense>
+    </HashRouter>
     </AuthProvider>
     </ErrorBoundary>
   );

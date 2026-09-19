@@ -30,10 +30,13 @@ export default function AboutPage() {
           <div className="reveal relative">
             <div className="relative rounded-2xl overflow-hidden">
               <img
-                src={story?.main_image_url ?? 'https://images.pexels.com/photos/18405036/pexels-photo-18405036.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1400&fit=crop'}
+                src={story?.main_image_url ?? 'https://images.pexels.com/photos/18405036/pexels-photo-18405036.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop'}
+                srcSet="https://images.pexels.com/photos/18405036/pexels-photo-18405036.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop 400w, https://images.pexels.com/photos/18405036/pexels-photo-18405036.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop 800w, https://images.pexels.com/photos/18405036/pexels-photo-18405036.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1400&fit=crop 1200w"
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 alt="Warm sunlit interior of a cozy café"
                 className="w-full h-[400px] sm:h-[500px] lg:h-[620px] object-cover"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="absolute -bottom-8 -right-2 sm:-right-6 w-32 sm:w-44 lg:w-52 rounded-xl overflow-hidden shadow-2xl border-4 border-ivory-50 hidden sm:block">
@@ -42,6 +45,7 @@ export default function AboutPage() {
                 alt="Hands pouring frothy milk creating latte art"
                 className="w-full h-40 sm:h-52 lg:h-60 object-cover"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <SeedCluster className="absolute -top-6 -left-4 sm:-left-6 w-20 sm:w-28 h-20 sm:h-28 text-botanical-300/50" />
@@ -105,7 +109,7 @@ export default function AboutPage() {
             ].map((item, i) => (
               <div key={item.title} className={`reveal reveal-delay-${i + 1} group rounded-xl overflow-hidden`}>
                 <div className="relative overflow-hidden rounded-xl">
-                  <img src={item.img} alt={item.title} className="w-full h-56 sm:h-64 object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                  <img src={item.img} alt={item.title} className="w-full h-56 sm:h-64 object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
                 </div>
                 <h3 className="font-serif text-xl sm:text-2xl text-ink-800 mt-4 tracking-tight">{item.title}</h3>
                 <p className="text-sm text-ink-400 mt-1.5 leading-relaxed">{item.desc}</p>

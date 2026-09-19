@@ -1,5 +1,6 @@
 import { useReveal } from '@/hooks/useReveal';
 import { useGallery } from '@/hooks/useContent';
+import { GallerySkeleton } from '@/components/Skeleton';
 import { HandDrawnLine } from '@/components/decorations';
 
 export default function GalleryPage() {
@@ -26,9 +27,7 @@ export default function GalleryPage() {
 
         {/* Masonry grid */}
         {loading ? (
-          <div className="text-center py-12">
-            <p className="text-sm text-ink-400">Loading gallery...</p>
-          </div>
+          <GallerySkeleton />
         ) : images.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-sm text-ink-400">Gallery is being updated. Please check back soon.</p>
@@ -42,6 +41,7 @@ export default function GalleryPage() {
                   alt={img.caption ?? ''}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-ink-900/0 group-hover:bg-ink-900/15 transition-colors duration-500" />
                 <figcaption className="absolute bottom-0 left-0 right-0 p-3 text-xs text-ivory-50/0 group-hover:text-ivory-50/80 transition-colors duration-500 bg-gradient-to-t from-ink-900/60 to-transparent">

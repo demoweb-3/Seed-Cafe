@@ -1,6 +1,7 @@
 import { useReveal } from '@/hooks/useReveal';
 import { useMenu } from '@/hooks/useContent';
 import MenuCard from '@/components/MenuCard';
+import { MenuGridSkeleton } from '@/components/Skeleton';
 import { Link } from 'react-router-dom';
 import { HandDrawnLine } from '@/components/decorations';
 import { ArrowRight } from 'lucide-react';
@@ -29,8 +30,11 @@ export default function MenuPage() {
 
         {/* Menu categories */}
         {loading ? (
-          <div className="text-center py-12">
-            <p className="text-sm text-ink-400">Loading menu...</p>
+          <div className="space-y-14 sm:space-y-20">
+            <div>
+              <div className="h-8 w-40 bg-ink-200/30 rounded animate-shimmer mb-6 sm:mb-8" />
+              <MenuGridSkeleton count={4} />
+            </div>
           </div>
         ) : categories.length === 0 ? (
           <div className="text-center py-12">

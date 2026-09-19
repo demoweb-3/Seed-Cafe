@@ -3,6 +3,7 @@ import { useReveal } from '@/hooks/useReveal';
 import { useFeaturedMenuItems, useGalleryPreview, useCafeSettings } from '@/hooks/useContent';
 import { HandDrawnLine, SeedSprout, CircleSeed, SeedCluster, OrganicCurve } from '@/components/decorations';
 import MenuCard from '@/components/MenuCard';
+import { MenuGridSkeleton, GallerySkeleton } from '@/components/Skeleton';
 import { MapPin, Clock, Phone, ArrowRight } from 'lucide-react';
 
 export default function Home() {
@@ -29,11 +30,16 @@ export default function Home() {
       <section ref={heroRef} className="relative min-h-[88svh] sm:min-h-[100svh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.pexels.com/photos/2101150/pexels-photo-2101150.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1280&fit=crop"
+            src="https://images.pexels.com/photos/2101150/pexels-photo-2101150.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop"
+            srcSet="https://images.pexels.com/photos/2101150/pexels-photo-2101150.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop 600w, https://images.pexels.com/photos/2101150/pexels-photo-2101150.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop 1200w, https://images.pexels.com/photos/2101150/pexels-photo-2101150.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1280&fit=crop 1920w"
+            sizes="100vw"
             alt="A warm cappuccino with latte art in morning sunlight on a wooden table"
             className="w-full h-full object-cover animate-slow-zoom"
             loading="eager"
+            decoding="async"
             fetchPriority="high"
+            width={1920}
+            height={1280}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink-900/80 via-ink-900/30 to-ink-900/40" />
           <div className="absolute inset-0 bg-gradient-to-r from-ink-900/40 via-transparent to-transparent" />
@@ -114,7 +120,7 @@ export default function Home() {
           </div>
 
           {menuLoading ? (
-            <div className="text-center py-8"><p className="text-sm text-ink-400">Loading...</p></div>
+            <MenuGridSkeleton count={4} />
           ) : featuredItems.length === 0 ? (
             <div className="text-center py-8"><p className="text-sm text-ink-400">Featured items coming soon.</p></div>
           ) : (
@@ -141,10 +147,13 @@ export default function Home() {
             <div className="reveal relative">
               <div className="relative rounded-2xl overflow-hidden">
                 <img
-                  src="https://images.pexels.com/photos/18405036/pexels-photo-18405036.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1400&fit=crop"
+                  src="https://images.pexels.com/photos/18405036/pexels-photo-18405036.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop"
+                  srcSet="https://images.pexels.com/photos/18405036/pexels-photo-18405036.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop 400w, https://images.pexels.com/photos/18405036/pexels-photo-18405036.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop 800w, https://images.pexels.com/photos/18405036/pexels-photo-18405036.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1400&fit=crop 1200w"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   alt="Warm sunlit interior of a cozy café with pillows and tables by the window"
                   className="w-full h-[400px] sm:h-[500px] lg:h-[620px] object-cover"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="absolute -bottom-8 -right-2 sm:-right-6 w-32 sm:w-44 lg:w-52 rounded-xl overflow-hidden shadow-2xl border-4 border-ivory-50 hidden sm:block">
@@ -153,6 +162,7 @@ export default function Home() {
                   alt="Hands pouring frothy milk creating latte art"
                   className="w-full h-40 sm:h-52 lg:h-60 object-cover"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <SeedCluster className="absolute -top-6 -left-4 sm:-left-6 w-20 sm:w-28 h-20 sm:h-28 text-botanical-300/50" />
@@ -202,7 +212,7 @@ export default function Home() {
             ].map((m, i) => (
               <div key={m.time} className={`reveal reveal-delay-${i + 1} group relative ${i === 1 ? 'lg:mt-12' : ''} ${i === 2 ? 'lg:mt-24' : ''}`}>
                 <div className="relative rounded-xl overflow-hidden mb-5">
-                  <img src={m.img} alt={m.title} className="w-full h-56 sm:h-64 lg:h-72 object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                  <img src={m.img} alt={m.title} className="w-full h-56 sm:h-64 lg:h-72 object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-gradient-to-t from-botanical-900/40 to-transparent" />
                   <span className="absolute bottom-3 left-3 text-xs font-medium tracking-[0.2em] uppercase text-ivory-50/90">{m.time}</span>
                 </div>
@@ -229,14 +239,14 @@ export default function Home() {
             </h2>
           </div>
           {galleryLoading ? (
-            <div className="text-center py-8"><p className="text-sm text-ink-400">Loading...</p></div>
+            <GallerySkeleton />
           ) : galleryImages.length === 0 ? (
             <div className="text-center py-8"><p className="text-sm text-ink-400">Gallery coming soon.</p></div>
           ) : (
             <div className="reveal reveal-delay-2 grid grid-cols-2 lg:grid-cols-4 auto-rows-[140px] sm:auto-rows-[180px] lg:auto-rows-[200px] gap-2 sm:gap-3 lg:gap-4">
               {galleryImages.map((img) => (
                 <figure key={img.id} className={`group relative overflow-hidden rounded-lg sm:rounded-xl ${img.span_class}`}>
-                  <img src={img.image_url} alt={img.caption ?? ''} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                  <img src={img.image_url} alt={img.caption ?? ''} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-ink-900/0 group-hover:bg-ink-900/15 transition-colors duration-500" />
                 </figure>
               ))}
